@@ -102,20 +102,60 @@
   <!-- 产品内容 -->
   <main>
     <section class="product-detail">
-      <img src="images/b1.jpg" alt="产品1">
-      <h2>白磁蓮花線香立て</h2>
+      <img src="images/appointment.webp" alt="まもなく発売">
+      <h2>心がざわつくこの時代、本物の静寂を求めるあなたへ。</h2>
       <p>心がざわつく時代に、本物の静寂を求めるあなたへ。</p>
-      <p>この「白磁蓮花線香立て」は、まるで開花した白蓮のように、ひとつひとつの花びらが繊細に重なり合い、無垢なる美しさと禅の精神を具現化した逸品です。</p>
-      <p>熟練職人の手により丁寧に仕上げられた白磁の艶は、光の加減でしっとりと輝き、空間に<strong>一瞬で「品」と「静けさ」</strong>をもたらします。</p>
-      <p>特徴・おすすめポイント：</p>
-      <p>純白の蓮花造形：仏教美術を思わせる優美なフォルム。和室にもモダン空間にも自然に溶け込む。</p>
-      <p>安定感ある設計：標準的な線香サイズに完全対応。線香が傾かず、灰が美しく落ちる設計。</p>
-      <p>禅・瞑想・リラックスに最適：心を整えたい時、深呼吸したい時、この香炉がそっと寄り添う。</p>
-      <p>ギフトにも最適：開運・浄化・癒しを願う贈り物として、母の日・敬老の日・引越し祝いにも◎</p>
-      <p>即納可能・業務用仕入れも対応：在庫800点以上、業者様・店舗様向けのまとめ購入も歓迎。</p>
-      <p>「香り」と「美」で、心を整える時間を贈る——<br>“癒しを届ける” 新しい定番ギフト。</p>
+<p>私たちは常に、最も魅力的なアート作品を生み出しています——こちらはまもなく発売予定の新商品です。</p>
+
+<p>経験豊富な職人の手で丁寧に仕上げられ、光の角度によって温かみのある艶を放ち、瞬時にお部屋に「上品さ」と「静けさ」をもたらします。</p>
+
+<p>すべてのデザインは、あなたの禅・瞑想・リラクゼーションの最高のパートナー：心を整えたい時や深呼吸したい時に、そっと寄り添います。</p>
+
+<p>ギフトにも最適：開運・浄化・癒しを願う贈り物として、母の日・父の日・敬老の日はもちろん、昇進祝いや送別、引越し祝いにもぴったりです。</p>
+
+<p>即納可能・まとめ買い対応：在庫800点以上、業者様・店舗様の大量購入も大歓迎。</p>
+
+<p>「香り」と「美」で、心を整える時間を贈りましょう——<br>
+“癒しを届ける” 新しい定番ギフトの登場です。</p>
+
 
       <!-- 改为预约订购按钮 -->
-      <a href="javascript:void(0)" class="buy-btn" onclick="openForm()">预约订购</a>
+      <a href="javascript:void(0)" class="buy-btn" onclick="openForm()">予約注文</a>
     </section>
   </main>
+
+  <!-- 表单弹窗 -->
+  <div class="form-modal" id="formModal">
+    <div class="form-content">
+      <span class="close-form" onclick="closeForm()">&times;</span>
+      <h2>予約注文（よやくちゅうもん）</h2>
+      <form id="contactForm" method="POST" action="https://formspree.io/f/mzzpzgpn">
+        <input type="text" name="name" placeholder="お名前" required>
+        <input type="email" name="email" placeholder="メールアドレス" required>
+        <textarea name="message" placeholder="ご希望の商品と数量" rows="4" required></textarea>
+        <button type="submit">予約を送信</button>
+      </form>
+    </div>
+  </div>
+
+  <script>
+    // 打开表单
+    function openForm() {
+      document.getElementById('formModal').style.display = 'flex';
+    }
+
+    // 关闭表单
+    function closeForm() {
+      document.getElementById('formModal').style.display = 'none';
+    }
+
+    // 点击外部关闭
+    window.onclick = function(event) {
+      const modal = document.getElementById('formModal');
+      if (event.target === modal) {
+        modal.style.display = 'none';
+      }
+    };
+  </script>
+</body>
+</html>
