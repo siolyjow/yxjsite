@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>产品1 - 煙霞境</title>
+  <link rel="stylesheet" href="style.css">
+  <style>
+    /* 按钮样式 */
+    .buy-btn {
+      display: inline-block;
+      padding: 12px 24px;
+      background-color: #a68a64;
+      color: #fff;
+      text-decoration: none;
+      border-radius: 6px;
+      transition: 0.3s;
+    }
+    .buy-btn:hover {
+      background-color: #8c7454;
+    }
+
+    /* 表单弹窗样式 */
+    .form-modal {
+      display: none;
+      position: fixed;
+      z-index: 1000;
+      left: 0;
+      top: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(0,0,0,0.6);
+      justify-content: center;
+      align-items: center;
+    }
+
+    .form-content {
+      background-color: #fff;
+      padding: 30px;
+      border-radius: 12px;
+      width: 90%;
+      max-width: 400px;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.2);
+      font-family: "Noto Sans JP", sans-serif;
+    }
+
+    .form-content h2 {
+      text-align: center;
+      margin-bottom: 20px;
+      color: #333;
+    }
+
+    .form-content input,
+    .form-content textarea {
+      width: 100%;
+      padding: 10px;
+      margin-bottom: 15px;
+      border: 1px solid #ccc;
+      border-radius: 6px;
+      font-size: 14px;
+    }
+
+    .form-content button {
+      width: 100%;
+      padding: 10px;
+      background-color: #a68a64;
+      color: #fff;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+      font-size: 15px;
+    }
+
+    .form-content button:hover {
+      background-color: #8c7454;
+    }
+
+    .close-form {
+      float: right;
+      font-size: 22px;
+      cursor: pointer;
+      color: #888;
+    }
+
+    .close-form:hover {
+      color: #000;
+    }
+  </style>
+</head>
+<body>
+  <!-- Header -->
+  <header>
+    <div class="header-left">
+      <a href="index.html"><img src="images/logoY.webp" alt="Logo" class="logo"></a>
+    </div>
+    <nav class="header-menu">
+      <a href="javascript:void(0)" onclick="openAbout()">About us</a>
+      <a href="javascript:void(0)" onclick="openPurchase()">購入案内</a>
+    </nav>
+  </header>
+
+  <!-- 产品内容 -->
+  <main>
+    <section class="product-detail">
+      <img src="images/b1.jpg" alt="产品1">
+      <h2>白磁蓮花線香立て</h2>
+      <p>心がざわつく時代に、本物の静寂を求めるあなたへ。</p>
+      <p>この「白磁蓮花線香立て」は、まるで開花した白蓮のように、ひとつひとつの花びらが繊細に重なり合い、無垢なる美しさと禅の精神を具現化した逸品です。</p>
+      <p>熟練職人の手により丁寧に仕上げられた白磁の艶は、光の加減でしっとりと輝き、空間に<strong>一瞬で「品」と「静けさ」</strong>をもたらします。</p>
+      <p>特徴・おすすめポイント：</p>
+      <p>純白の蓮花造形：仏教美術を思わせる優美なフォルム。和室にもモダン空間にも自然に溶け込む。</p>
+      <p>安定感ある設計：標準的な線香サイズに完全対応。線香が傾かず、灰が美しく落ちる設計。</p>
+      <p>禅・瞑想・リラックスに最適：心を整えたい時、深呼吸したい時、この香炉がそっと寄り添う。</p>
+      <p>ギフトにも最適：開運・浄化・癒しを願う贈り物として、母の日・敬老の日・引越し祝いにも◎</p>
+      <p>即納可能・業務用仕入れも対応：在庫800点以上、業者様・店舗様向けのまとめ購入も歓迎。</p>
+      <p>「香り」と「美」で、心を整える時間を贈る——<br>“癒しを届ける” 新しい定番ギフト。</p>
+
+      <!-- 改为预约订购按钮 -->
+      <a href="javascript:void(0)" class="buy-btn" onclick="openForm()">预约订购</a>
+    </section>
+  </main>
