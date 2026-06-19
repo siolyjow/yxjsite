@@ -247,7 +247,7 @@ input {
   justify-content: center;
   flex: 0 0 auto;
   padding: 0 20px;
-  background: var(--gray-blue);
+  background: var(--primary);
   color: #fff;
   font-weight: 900;
 }
