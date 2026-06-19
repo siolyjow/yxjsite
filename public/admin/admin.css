@@ -236,6 +236,7 @@ h1 {
   color: var(--muted);
   font-size: 12px;
   font-weight: 900;
+  line-height: 1.4;
 }
 
 .settings-preview img {
