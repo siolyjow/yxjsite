@@ -90,14 +90,16 @@ function renderCategoryControls() {
     filtersContainer.appendChild(button);
   });
 
-  categoryLinks.innerHTML = "";
-  categories.slice(0, 3).forEach((category) => {
-    const link = document.createElement("a");
-    link.href = "#products";
-    link.dataset.filter = category.value;
-    link.innerHTML = `<span>${category.eyebrow}</span>${category.homeLabel}`;
-    categoryLinks.appendChild(link);
-  });
+  if (categoryLinks) {
+    categoryLinks.innerHTML = "";
+    categories.slice(0, 3).forEach((category) => {
+      const link = document.createElement("a");
+      link.href = "#products";
+      link.dataset.filter = category.value;
+      link.innerHTML = `<span>${category.eyebrow}</span>${category.homeLabel}`;
+      categoryLinks.appendChild(link);
+    });
+  }
 }
 
 async function loadProducts() {
@@ -158,13 +160,15 @@ filtersContainer.addEventListener("click", (event) => {
   renderProducts();
 });
 
-categoryLinks.addEventListener("click", (event) => {
-  const link = event.target.closest("[data-filter]");
-  if (!link) return;
-  activeFilter = link.dataset.filter;
-  renderCategoryControls();
-  renderProducts();
-});
+if (categoryLinks) {
+  categoryLinks.addEventListener("click", (event) => {
+    const link = event.target.closest("[data-filter]");
+    if (!link) return;
+    activeFilter = link.dataset.filter;
+    renderCategoryControls();
+    renderProducts();
+  });
+}
 
 renderCategoryControls();
 loadSettings();
