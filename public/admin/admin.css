@@ -51,6 +51,11 @@ button.primary {
   color: #fff;
 }
 
+button.secondary-primary {
+  background: var(--text);
+  border-color: var(--text);
+}
+
 button.danger {
   color: var(--primary);
 }
@@ -102,6 +107,15 @@ h1 {
   grid-template-columns: minmax(260px, 360px) minmax(0, 1fr);
   gap: 22px;
   padding: 24px clamp(18px, 5vw, 56px) 70px;
+}
+
+.settings-panel {
+  grid-column: 1 / -1;
+  background: var(--card);
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  box-shadow: var(--shadow);
+  overflow: hidden;
 }
 
 .product-list-panel,
@@ -197,6 +211,41 @@ h1 {
   grid-template-columns: repeat(2, minmax(0, 1fr));
   gap: 16px;
   padding: 20px;
+}
+
+.settings-form {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 16px;
+  padding: 20px;
+}
+
+.settings-preview {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 16px;
+  padding: 0 20px 20px;
+}
+
+.settings-preview div {
+  display: grid;
+  gap: 8px;
+}
+
+.settings-preview span {
+  color: var(--muted);
+  font-size: 12px;
+  font-weight: 900;
+}
+
+.settings-preview img {
+  width: 100%;
+  aspect-ratio: 2.2;
+  display: block;
+  object-fit: cover;
+  border-radius: 8px;
+  background: #f0e8e2;
+  border: 1px solid var(--line);
 }
 
 label {
@@ -322,7 +371,9 @@ textarea:focus {
 }
 
 @media (max-width: 620px) {
-  .editor-grid {
+  .editor-grid,
+  .settings-form,
+  .settings-preview {
     grid-template-columns: 1fr;
   }
 }

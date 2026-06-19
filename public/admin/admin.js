@@ -1,11 +1,13 @@
 const list = document.getElementById("productList");
 const form = document.getElementById("productForm");
+const settingsForm = document.getElementById("settingsForm");
 const editorTitle = document.getElementById("editorTitle");
 const statusBox = document.getElementById("status");
 const fileInput = document.getElementById("fileInput");
 
 const reloadButton = document.getElementById("reloadButton");
 const saveButton = document.getElementById("saveButton");
+const saveSettingsButton = document.getElementById("saveSettingsButton");
 const exportButton = document.getElementById("exportButton");
 const addButton = document.getElementById("addButton");
 const moveUpButton = document.getElementById("moveUpButton");
@@ -18,10 +20,22 @@ const previewTag = document.getElementById("previewTag");
 const previewName = document.getElementById("previewName");
 const previewDescription = document.getElementById("previewDescription");
 const previewPrice = document.getElementById("previewPrice");
+const heroPreview = document.getElementById("heroPreview");
+const giftPreview = document.getElementById("giftPreview");
 
 let products = [];
 let selectedIndex = -1;
 let kvReady = false;
+let settings = {
+  announcementText: "",
+  heroImage: "/images/insence113.webp",
+  giftImage: "/images/highqualitygift.webp",
+  categories: [
+    { value: "flower", filterLabel: "花", homeLabel: "香立て", eyebrow: "Incense Holder" },
+    { value: "lotus", filterLabel: "蓮", homeLabel: "蓮", eyebrow: "Lotus" },
+    { value: "gift", filterLabel: "Gift", homeLabel: "贈り物", eyebrow: "Seasonal Gift" }
+  ]
+};
 
 function setStatus(message) {
   statusBox.textContent = message;
@@ -41,6 +55,74 @@ function normalizeProduct(product = {}) {
     url: product.url || "",
     description: product.description || ""
   };
+}
+
+function normalizeSettings(nextSettings = {}) {
+  return {
+    announcementText: nextSettings.announcementText || "",
+    heroImage: nextSettings.heroImage || "/images/insence113.webp",
+    giftImage: nextSettings.giftImage || "/images/highqualitygift.webp",
+    categories: normalizeCategories(nextSettings.categories)
+  };
+}
+
+function normalizeCategories(categories) {
+  const fallback = [
+    { value: "flower", filterLabel: "花", homeLabel: "香立て", eyebrow: "Incense Holder" },
+    { value: "lotus", filterLabel: "蓮", homeLabel: "蓮", eyebrow: "Lotus" },
+    { value: "gift", filterLabel: "Gift", homeLabel: "贈り物", eyebrow: "Seasonal Gift" }
+  ];
+
+  if (!Array.isArray(categories) || !categories.length) return fallback;
+
+  return categories
+    .map((category) => ({
+      value: String(category.value || "").trim(),
+      filterLabel: String(category.filterLabel || category.value || "").trim(),
+      homeLabel: String(category.homeLabel || category.filterLabel || category.value || "").trim(),
+      eyebrow: String(category.eyebrow || category.value || "").trim()
+    }))
+    .filter((category) => category.value);
+}
+
+function formatCategories(categories) {
+  return categories
+    .map((category) => `${category.value} | ${category.filterLabel} | ${category.homeLabel} | ${category.eyebrow}`)
+    .join("\n");
+}
+
+function parseCategories(text) {
+  return text
+    .split(/\r?\n/)
+    .map((line) => line.trim())
+    .filter(Boolean)
+    .map((line) => {
+      const [value, filterLabel, homeLabel, eyebrow] = line.split("|").map((part) => part.trim());
+      return { value, filterLabel, homeLabel, eyebrow };
+    })
+    .filter((category) => category.value);
+}
+
+function fillSettingsForm() {
+  settingsForm.elements.announcementText.value = settings.announcementText;
+  settingsForm.elements.heroImage.value = settings.heroImage;
+  settingsForm.elements.giftImage.value = settings.giftImage;
+  settingsForm.elements.categories.value = formatCategories(settings.categories);
+  renderSettingsPreview();
+}
+
+function readSettingsForm() {
+  return normalizeSettings({
+    announcementText: settingsForm.elements.announcementText.value.trim(),
+    heroImage: settingsForm.elements.heroImage.value.trim(),
+    giftImage: settingsForm.elements.giftImage.value.trim(),
+    categories: parseCategories(settingsForm.elements.categories.value)
+  });
+}
+
+function renderSettingsPreview() {
+  heroPreview.src = settings.heroImage;
+  giftPreview.src = settings.giftImage;
 }
 
 function renderList() {
@@ -147,6 +229,19 @@ async function loadProducts() {
   }
 }
 
+async function loadSettings() {
+  try {
+    const response = await fetch("/api/admin/settings", { cache: "no-store" });
+    if (response.status === 403) return;
+    if (!response.ok) throw new Error("首页设置接口暂不可用");
+    const data = await response.json();
+    settings = normalizeSettings(data.settings || {});
+    fillSettingsForm();
+  } catch (error) {
+    setStatus(error.message);
+  }
+}
+
 async function saveProducts() {
   const response = await fetch("/api/admin/products", {
     method: "PUT",
@@ -162,6 +257,25 @@ async function saveProducts() {
 
   setProducts(data.products || products);
   setStatus("已保存到线上 KV");
+}
+
+async function saveSettings() {
+  settings = readSettingsForm();
+  const response = await fetch("/api/admin/settings", {
+    method: "PUT",
+    headers: { "content-type": "application/json" },
+    body: JSON.stringify(settings, null, 2)
+  });
+
+  const data = await response.json().catch(() => ({}));
+  if (!response.ok) {
+    setStatus(data.error || "首页设置保存失败");
+    return;
+  }
+
+  settings = normalizeSettings(data.settings || settings);
+  fillSettingsForm();
+  setStatus("首页图片设置已保存到线上");
 }
 
 function exportProductsFile() {
@@ -237,7 +351,9 @@ fileInput.addEventListener("change", async () => {
 });
 
 reloadButton.addEventListener("click", loadProducts);
+reloadButton.addEventListener("click", loadSettings);
 saveButton.addEventListener("click", () => saveProducts().catch((error) => setStatus(error.message)));
+saveSettingsButton.addEventListener("click", () => saveSettings().catch((error) => setStatus(error.message)));
 exportButton.addEventListener("click", exportProductsFile);
 addButton.addEventListener("click", addProduct);
 moveUpButton.addEventListener("click", () => moveSelected(-1));
@@ -245,5 +361,10 @@ moveDownButton.addEventListener("click", () => moveSelected(1));
 duplicateButton.addEventListener("click", duplicateSelected);
 deleteButton.addEventListener("click", deleteSelected);
 form.addEventListener("input", updateSelectedFromForm);
+settingsForm.addEventListener("input", () => {
+  settings = readSettingsForm();
+  renderSettingsPreview();
+});
 
 loadProducts();
+loadSettings();

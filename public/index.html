@@ -7,7 +7,7 @@
   <link rel="stylesheet" href="/styles.css">
 </head>
 <body>
-  <div class="notice">minne公式ショップへ直接ご案内します。安心決済・配送状況の確認もminneで行えます。</div>
+  <div class="notice" id="announcement" aria-hidden="true"></div>
 
   <header class="site-header">
     <a class="brand" href="/" aria-label="煙霞境 home">
@@ -32,20 +32,7 @@
       </div>
     </section>
 
-    <section class="quick-categories" aria-label="Featured categories">
-      <a href="#products">
-        <span>New Arrival</span>
-        新作
-      </a>
-      <a href="#products">
-        <span>Incense Holder</span>
-        香立て
-      </a>
-      <a href="#gift">
-        <span>Seasonal Gift</span>
-        贈り物
-      </a>
-    </section>
+    <section class="quick-categories" id="categoryLinks" aria-label="Featured categories"></section>
 
     <section class="section-intro" id="new">
       <p class="eyebrow">selected works</p>
@@ -55,10 +42,6 @@
 
     <section class="product-toolbar" aria-label="Product tools">
       <div class="filter-group" role="list" aria-label="Product filters">
-        <button class="filter active" type="button" data-filter="all">All</button>
-        <button class="filter" type="button" data-filter="flower">花</button>
-        <button class="filter" type="button" data-filter="lotus">蓮</button>
-        <button class="filter" type="button" data-filter="gift">Gift</button>
       </div>
       <a class="shop-link" href="https://minne.com/@hi-topper" target="_blank" rel="noopener">minne店へ</a>
     </section>
@@ -72,7 +55,7 @@
       </div>
       <p>母の日、引越し祝い、開店祝い、季節のご挨拶に。購入・配送・決済はminneの安全な画面で完了します。</p>
       <figure class="gift-visual">
-        <img src="/images/highqualitygift.webp" alt="煙霞境 gift set">
+        <img id="giftImage" src="/images/highqualitygift.webp" alt="煙霞境 gift set">
       </figure>
     </section>
 

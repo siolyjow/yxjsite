@@ -1,0 +1,25 @@
+{
+  "announcementText": "",
+  "heroImage": "/images/insence113.webp",
+  "giftImage": "/images/highqualitygift.webp",
+  "categories": [
+    {
+      "value": "flower",
+      "filterLabel": "花",
+      "homeLabel": "香立て",
+      "eyebrow": "Incense Holder"
+    },
+    {
+      "value": "lotus",
+      "filterLabel": "蓮",
+      "homeLabel": "蓮",
+      "eyebrow": "Lotus"
+    },
+    {
+      "value": "gift",
+      "filterLabel": "Gift",
+      "homeLabel": "贈り物",
+      "eyebrow": "Seasonal Gift"
+    }
+  ]
+}

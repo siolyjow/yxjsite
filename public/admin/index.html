@@ -15,6 +15,7 @@
     <div class="actions">
       <button type="button" id="reloadButton">重新载入</button>
       <button type="button" id="saveButton" class="primary">保存到线上</button>
+      <button type="button" id="saveSettingsButton" class="primary secondary-primary">保存首页设置</button>
       <button type="button" id="exportButton">导出 JSON</button>
       <label class="import-button">
         导入 JSON
@@ -24,6 +25,43 @@
   </header>
 
   <main class="layout">
+    <section class="settings-panel">
+      <div class="panel-head">
+        <div>
+          <p class="eyebrow">homepage visuals</p>
+          <strong>首页图片</strong>
+        </div>
+      </div>
+      <form id="settingsForm" class="settings-form">
+        <label class="wide">
+          公告文字
+          <input name="announcementText" type="text" placeholder="留空时只显示顶部品牌色条">
+        </label>
+        <label>
+          首屏大图
+          <input name="heroImage" type="text" placeholder="/images/insence113.webp">
+        </label>
+        <label>
+          礼品区图片
+          <input name="giftImage" type="text" placeholder="/images/highqualitygift.webp">
+        </label>
+        <label class="wide">
+          产品分类
+          <textarea name="categories" rows="4" placeholder="flower | 花 | 香立て | Incense Holder&#10;lotus | 蓮 | 蓮 | Lotus&#10;gift | Gift | 贈り物 | Seasonal Gift"></textarea>
+        </label>
+      </form>
+      <div class="settings-preview">
+        <div>
+          <span>首屏大图</span>
+          <img id="heroPreview" alt="">
+        </div>
+        <div>
+          <span>礼品区图片</span>
+          <img id="giftPreview" alt="">
+        </div>
+      </div>
+    </section>
+
     <aside class="product-list-panel">
       <div class="panel-head">
         <strong>商品列表</strong>

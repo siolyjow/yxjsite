@@ -1,8 +1,87 @@
 const grid = document.querySelector(".product-grid");
-const filters = document.querySelectorAll(".filter");
+const filtersContainer = document.querySelector(".filter-group");
+const categoryLinks = document.getElementById("categoryLinks");
+const announcement = document.getElementById("announcement");
 
 let activeFilter = "all";
 let products = [];
+let categories = [
+  { value: "flower", filterLabel: "花", homeLabel: "香立て", eyebrow: "Incense Holder" },
+  { value: "lotus", filterLabel: "蓮", homeLabel: "蓮", eyebrow: "Lotus" },
+  { value: "gift", filterLabel: "Gift", homeLabel: "贈り物", eyebrow: "Seasonal Gift" }
+];
+
+async function loadSettings() {
+  try {
+    const response = await fetch("/api/settings", { cache: "no-store" });
+    if (!response.ok) throw new Error("API settings were not found.");
+    applySettings(await response.json());
+  } catch {
+    const response = await fetch("/data/settings.json", { cache: "no-store" });
+    if (response.ok) applySettings(await response.json());
+  }
+}
+
+function applySettings(settings = {}) {
+  if (announcement) {
+    const text = (settings.announcementText || "").trim();
+    announcement.textContent = text;
+    announcement.classList.toggle("has-text", Boolean(text));
+    announcement.setAttribute("aria-hidden", text ? "false" : "true");
+  }
+
+  if (settings.heroImage) {
+    document.documentElement.style.setProperty("--hero-image", `url("${settings.heroImage}")`);
+  }
+
+  const giftImage = document.getElementById("giftImage");
+  if (giftImage && settings.giftImage) {
+    giftImage.src = settings.giftImage;
+  }
+
+  if (Array.isArray(settings.categories) && settings.categories.length) {
+    categories = settings.categories.map(normalizeCategory).filter((category) => category.value);
+  }
+
+  renderCategoryControls();
+}
+
+function normalizeCategory(category = {}) {
+  return {
+    value: String(category.value || "").trim(),
+    filterLabel: String(category.filterLabel || category.value || "").trim(),
+    homeLabel: String(category.homeLabel || category.filterLabel || category.value || "").trim(),
+    eyebrow: String(category.eyebrow || category.value || "").trim()
+  };
+}
+
+function renderCategoryControls() {
+  filtersContainer.innerHTML = "";
+  const allButton = document.createElement("button");
+  allButton.className = `filter${activeFilter === "all" ? " active" : ""}`;
+  allButton.type = "button";
+  allButton.dataset.filter = "all";
+  allButton.textContent = "All";
+  filtersContainer.appendChild(allButton);
+
+  categories.forEach((category) => {
+    const button = document.createElement("button");
+    button.className = `filter${activeFilter === category.value ? " active" : ""}`;
+    button.type = "button";
+    button.dataset.filter = category.value;
+    button.textContent = category.filterLabel;
+    filtersContainer.appendChild(button);
+  });
+
+  categoryLinks.innerHTML = "";
+  categories.slice(0, 3).forEach((category) => {
+    const link = document.createElement("a");
+    link.href = "#products";
+    link.dataset.filter = category.value;
+    link.innerHTML = `<span>${category.eyebrow}</span>${category.homeLabel}`;
+    categoryLinks.appendChild(link);
+  });
+}
 
 async function loadProducts() {
   try {
@@ -54,13 +133,22 @@ function renderProducts() {
   });
 }
 
-filters.forEach((button) => {
-  button.addEventListener("click", () => {
-    filters.forEach((item) => item.classList.remove("active"));
-    button.classList.add("active");
-    activeFilter = button.dataset.filter;
-    renderProducts();
-  });
+filtersContainer.addEventListener("click", (event) => {
+  const button = event.target.closest(".filter");
+  if (!button) return;
+  activeFilter = button.dataset.filter;
+  renderCategoryControls();
+  renderProducts();
 });
 
+categoryLinks.addEventListener("click", (event) => {
+  const link = event.target.closest("[data-filter]");
+  if (!link) return;
+  activeFilter = link.dataset.filter;
+  renderCategoryControls();
+  renderProducts();
+});
+
+renderCategoryControls();
+loadSettings();
 loadProducts();

@@ -37,9 +37,13 @@ input {
 }
 
 .notice {
-  background: var(--dusty-pink);
-  color: #fff;
+  min-height: 10px;
+  background: var(--primary);
+}
+
+.notice.has-text {
   padding: 9px 16px;
+  color: #fff;
   text-align: center;
   font-size: 13px;
   font-weight: 700;
@@ -117,7 +121,7 @@ input {
   padding: clamp(42px, 8vw, 96px) clamp(20px, 6vw, 84px);
   background:
     linear-gradient(90deg, rgba(248, 243, 239, 0.94), rgba(248, 243, 239, 0.68) 34%, rgba(248, 243, 239, 0.08) 68%),
-    url("/images/insence113.webp") center / cover no-repeat;
+    var(--hero-image, url("/images/insence113.webp")) center / cover no-repeat;
 }
 
 .hero-copy {
@@ -464,6 +468,10 @@ input {
 
 @media (max-width: 620px) {
   .notice {
+    min-height: 8px;
+  }
+
+  .notice.has-text {
     font-size: 12px;
     line-height: 1.55;
   }
@@ -494,7 +502,7 @@ input {
     padding: 36px 18px;
     background:
       linear-gradient(180deg, rgba(248, 243, 239, 0.94), rgba(248, 243, 239, 0.58) 42%, rgba(57, 53, 51, 0.38)),
-      url("/images/insence113.webp") center / cover no-repeat;
+      var(--hero-image, url("/images/insence113.webp")) center / cover no-repeat;
     align-items: start;
   }
 
