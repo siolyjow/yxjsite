@@ -116,12 +116,7 @@ input {
 
 .hero {
   min-height: min(620px, 60vh);
-  display: flex;
-  align-items: center;
-  padding: clamp(42px, 8vw, 96px) clamp(20px, 6vw, 84px);
-  background:
-    linear-gradient(90deg, rgba(248, 243, 239, 0.94), rgba(248, 243, 239, 0.68) 34%, rgba(248, 243, 239, 0.08) 68%),
-    var(--hero-image, url("/images/insence113.webp")) center / cover no-repeat;
+  background: var(--hero-image, url("/images/insence113.webp")) center / cover no-repeat;
 }
 
 .hero-copy {
@@ -505,11 +500,7 @@ input {
 
   .hero {
     min-height: 520px;
-    padding: 36px 18px;
-    background:
-      linear-gradient(180deg, rgba(248, 243, 239, 0.94), rgba(248, 243, 239, 0.58) 42%, rgba(57, 53, 51, 0.38)),
-      var(--hero-image, url("/images/insence113.webp")) center / cover no-repeat;
-    align-items: start;
+    background: var(--hero-image, url("/images/insence113.webp")) center / cover no-repeat;
   }
 
   .hero h1 {
