@@ -2,6 +2,9 @@ const grid = document.querySelector(".product-grid");
 const filtersContainer = document.querySelector(".filter-group");
 const categoryLinks = document.getElementById("categoryLinks");
 const announcement = document.getElementById("announcement");
+const productEyebrow = document.getElementById("productEyebrow");
+const productTitle = document.getElementById("productTitle");
+const productIntro = document.getElementById("productIntro");
 
 let activeFilter = "all";
 let products = [];
@@ -28,6 +31,20 @@ function applySettings(settings = {}) {
     announcement.textContent = text;
     announcement.classList.toggle("has-text", Boolean(text));
     announcement.setAttribute("aria-hidden", text ? "false" : "true");
+  }
+
+  if (productEyebrow) {
+    const text = (settings.productEyebrow || "").trim();
+    productEyebrow.textContent = text;
+    productEyebrow.hidden = !text;
+  }
+
+  if (productTitle && settings.productTitle) {
+    productTitle.textContent = settings.productTitle;
+  }
+
+  if (productIntro && settings.productIntro) {
+    productIntro.textContent = settings.productIntro;
   }
 
   if (settings.heroImage) {

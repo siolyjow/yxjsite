@@ -28,6 +28,9 @@ let selectedIndex = -1;
 let kvReady = false;
 let settings = {
   announcementText: "",
+  productEyebrow: "",
+  productTitle: "ひとつ置くだけで、いつもの部屋が少し特別に。",
+  productIntro: "今なら、すべてのご注文に上質なお香をプレゼント。",
   heroImage: "/images/insence113.webp",
   giftImage: "/images/highqualitygift.webp",
   categories: [
@@ -60,6 +63,9 @@ function normalizeProduct(product = {}) {
 function normalizeSettings(nextSettings = {}) {
   return {
     announcementText: nextSettings.announcementText || "",
+    productEyebrow: nextSettings.productEyebrow || "",
+    productTitle: nextSettings.productTitle || "ひとつ置くだけで、いつもの部屋が少し特別に。",
+    productIntro: nextSettings.productIntro || "今なら、すべてのご注文に上質なお香をプレゼント。",
     heroImage: nextSettings.heroImage || "/images/insence113.webp",
     giftImage: nextSettings.giftImage || "/images/highqualitygift.webp",
     categories: normalizeCategories(nextSettings.categories)
@@ -105,6 +111,9 @@ function parseCategories(text) {
 
 function fillSettingsForm() {
   settingsForm.elements.announcementText.value = settings.announcementText;
+  settingsForm.elements.productEyebrow.value = settings.productEyebrow;
+  settingsForm.elements.productTitle.value = settings.productTitle;
+  settingsForm.elements.productIntro.value = settings.productIntro;
   settingsForm.elements.heroImage.value = settings.heroImage;
   settingsForm.elements.giftImage.value = settings.giftImage;
   settingsForm.elements.categories.value = formatCategories(settings.categories);
@@ -114,6 +123,9 @@ function fillSettingsForm() {
 function readSettingsForm() {
   return normalizeSettings({
     announcementText: settingsForm.elements.announcementText.value.trim(),
+    productEyebrow: settingsForm.elements.productEyebrow.value.trim(),
+    productTitle: settingsForm.elements.productTitle.value.trim(),
+    productIntro: settingsForm.elements.productIntro.value.trim(),
     heroImage: settingsForm.elements.heroImage.value.trim(),
     giftImage: settingsForm.elements.giftImage.value.trim(),
     categories: parseCategories(settingsForm.elements.categories.value)

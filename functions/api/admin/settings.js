@@ -46,6 +46,9 @@ function requireAdmin(request, env) {
 function normalizeSettings(settings = {}) {
   return {
     announcementText: String(settings.announcementText || "").trim(),
+    productEyebrow: String(settings.productEyebrow || "").trim(),
+    productTitle: String(settings.productTitle || "ひとつ置くだけで、いつもの部屋が少し特別に。").trim(),
+    productIntro: String(settings.productIntro || "今なら、すべてのご注文に上質なお香をプレゼント。").trim(),
     heroImage: String(settings.heroImage || "/images/insence113.webp").trim(),
     giftImage: String(settings.giftImage || "/images/highqualitygift.webp").trim(),
     categories: normalizeCategories(settings.categories)

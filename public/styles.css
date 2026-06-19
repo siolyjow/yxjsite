@@ -125,7 +125,7 @@ input {
 }
 
 .hero-copy {
-  max-width: 560px;
+  max-width: 460px;
   color: var(--text);
 }
 
@@ -147,7 +147,7 @@ input {
 
 .hero p:not(.eyebrow) {
   max-width: 410px;
-  margin: 18px 0 28px;
+  margin: 0 0 28px;
   font-size: clamp(16px, 1.5vw, 19px);
   line-height: 1.85;
 }
