@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>煙霞境 商品管理</title>
+  <link rel="stylesheet" href="/admin/admin.css">
+</head>
+<body>
+  <header class="admin-header">
+    <div>
+      <p class="eyebrow">cloudflare access admin</p>
+      <h1>煙霞境 商品管理</h1>
+    </div>
+    <div class="actions">
+      <button type="button" id="reloadButton">重新载入</button>
+      <button type="button" id="saveButton" class="primary">保存到线上</button>
+      <button type="button" id="exportButton">导出 JSON</button>
+      <label class="import-button">
+        导入 JSON
+        <input id="fileInput" type="file" accept="application/json,.json" hidden>
+      </label>
+    </div>
+  </header>
+
+  <main class="layout">
+    <aside class="product-list-panel">
+      <div class="panel-head">
+        <strong>商品列表</strong>
+        <button type="button" id="addButton" class="round-button">+</button>
+      </div>
+      <div class="product-list" id="productList"></div>
+    </aside>
+
+    <section class="editor-panel">
+      <form id="productForm" class="product-form">
+        <div class="editor-head">
+          <div>
+            <p class="eyebrow">selected item</p>
+            <h2 id="editorTitle">选择一个商品</h2>
+          </div>
+          <div class="small-actions">
+            <button type="button" id="moveUpButton">上移</button>
+            <button type="button" id="moveDownButton">下移</button>
+            <button type="button" id="duplicateButton">复制</button>
+            <button type="button" id="deleteButton" class="danger">删除</button>
+          </div>
+        </div>
+
+        <div class="editor-grid">
+          <label>
+            商品名
+            <input name="name" type="text" required>
+          </label>
+          <label>
+            价格
+            <input name="price" type="text" placeholder="1,699 円" required>
+          </label>
+          <label>
+            标签
+            <input name="tag" type="text" placeholder="New / Gift / Limited">
+          </label>
+          <label>
+            分类
+            <input name="category" type="text" placeholder="flower, gift">
+          </label>
+          <label>
+            图片路径
+            <input name="image" type="text" placeholder="/images/a001.jpg" required>
+          </label>
+          <label>
+            minne 链接
+            <input name="url" type="url" placeholder="https://minne.com/items/00000000" required>
+          </label>
+          <label class="wide">
+            描述
+            <textarea name="description" rows="4"></textarea>
+          </label>
+        </div>
+      </form>
+
+      <section class="preview-card" aria-label="Preview">
+        <div class="preview-image">
+          <img id="previewImage" alt="">
+        </div>
+        <div>
+          <span id="previewTag" class="badge">minne</span>
+          <h3 id="previewName">商品预览</h3>
+          <p id="previewDescription">编辑左侧字段后，这里会同步显示。</p>
+          <strong id="previewPrice">-</strong>
+        </div>
+      </section>
+    </section>
+  </main>
+
+  <div class="status" id="status">正在载入商品数据</div>
+  <script src="/admin/admin.js"></script>
+</body>
+</html>
