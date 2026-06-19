@@ -1,0 +1,65 @@
+[
+  {
+    "name": "白牡丹 香立",
+    "price": "1,699 円",
+    "tag": "Only on minne",
+    "category": ["flower", "gift"],
+    "image": "/images/a001.jpg",
+    "url": "https://minne.com/items/43460606",
+    "description": "白磁のような静けさと、花のやわらかな造形。"
+  },
+  {
+    "name": "軽雲白玉蘭 香立",
+    "price": "1,599 円",
+    "tag": "White Magnolia",
+    "category": ["flower"],
+    "image": "/images/a003.jpg",
+    "url": "https://minne.com/items/43460550",
+    "description": "白い玉蘭を写した、手のひらサイズの香立。"
+  },
+  {
+    "name": "白いバラ 香立",
+    "price": "899 円",
+    "tag": "Gift",
+    "category": ["flower", "gift"],
+    "image": "/images/a004.jpg",
+    "url": "https://minne.com/items/44161876",
+    "description": "薔薇のかたちが空間に小さな華やぎを添えます。"
+  },
+  {
+    "name": "青磁 柑子香立",
+    "price": "1,499 円",
+    "tag": "New",
+    "category": ["gift"],
+    "image": "/images/a005.jpg",
+    "url": "https://minne.com/items/43460283",
+    "description": "青磁の色味が映える、愛らしい果実のモチーフ。"
+  },
+  {
+    "name": "桜の香立",
+    "price": "999 円",
+    "tag": "Sakura",
+    "category": ["flower", "gift"],
+    "image": "/images/a006.jpg",
+    "url": "https://minne.com/items/44163432",
+    "description": "季節の贈り物にも選びやすい、やさしい桜色。"
+  },
+  {
+    "name": "霽月紫玉蘭 香立",
+    "price": "1,599 円",
+    "tag": "Limited",
+    "category": ["flower"],
+    "image": "/images/a007.jpg",
+    "url": "https://minne.com/items/43460529",
+    "description": "紫を帯びた玉蘭が、静かな奥行きをつくります。"
+  },
+  {
+    "name": "黄玉蘭 香立",
+    "price": "1,299 円",
+    "tag": "Warm Tone",
+    "category": ["flower", "gift"],
+    "image": "/images/a008.jpg",
+    "url": "https://minne.com/items/44163636",
+    "description": "淡い黄味の花びらが、部屋に明るさを添えます。"
+  }
+]
