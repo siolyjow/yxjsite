@@ -1,4 +1,5 @@
 const PRODUCT_KEY = "products";
+const PRODUCT_VERSION_KEY = "products_seed_version";
 const FALLBACK_ADMIN_EMAIL = "siolyjow@gmail.com";
 
 export async function onRequestGet(context) {
@@ -24,10 +25,14 @@ export async function onRequestPut(context) {
 
   const normalized = products.map(normalizeProduct);
   await context.env.PRODUCTS_KV.put(PRODUCT_KEY, JSON.stringify(normalized, null, 2));
+  await markCurrentSeedVersion(context);
   return json({ ok: true, products: normalized });
 }
 
 async function readProducts(context) {
+  const seeded = await syncSeededProducts(context);
+  if (seeded) return seeded;
+
   if (context.env.PRODUCTS_KV) {
     const products = await context.env.PRODUCTS_KV.get(PRODUCT_KEY, "json");
     if (Array.isArray(products)) return products;
@@ -35,6 +40,39 @@ async function readProducts(context) {
 
   const fallback = await context.env.ASSETS.fetch(new URL("/data/products.json", context.request.url));
   return fallback.ok ? fallback.json() : [];
+}
+
+async function syncSeededProducts(context) {
+  if (!context.env.PRODUCTS_KV) return null;
+
+  const seed = await readProductSeed(context);
+  if (!seed.version || !seed.products.length) return null;
+
+  const kvVersion = await context.env.PRODUCTS_KV.get(PRODUCT_VERSION_KEY);
+  if (kvVersion === seed.version) return null;
+
+  await context.env.PRODUCTS_KV.put(PRODUCT_KEY, JSON.stringify(seed.products, null, 2));
+  await context.env.PRODUCTS_KV.put(PRODUCT_VERSION_KEY, seed.version);
+  return seed.products;
+}
+
+async function markCurrentSeedVersion(context) {
+  const seed = await readProductSeed(context);
+  if (seed.version) {
+    await context.env.PRODUCTS_KV.put(PRODUCT_VERSION_KEY, seed.version);
+  }
+}
+
+async function readProductSeed(context) {
+  const productsResponse = await context.env.ASSETS.fetch(new URL("/data/products.json", context.request.url));
+  const products = productsResponse.ok ? await productsResponse.json() : [];
+  const versionResponse = await context.env.ASSETS.fetch(new URL("/data/products-version.json", context.request.url));
+  const versionData = versionResponse.ok ? await versionResponse.json().catch(() => ({})) : {};
+
+  return {
+    products: Array.isArray(products) ? products : [],
+    version: String(versionData.version || "").trim()
+  };
 }
 
 function requireAdmin(request, env) {
